@@ -123,9 +123,18 @@ public class PDFGenerator {
                     pageHeight - bufferTop);
             // we have a map of measure number to count per measure
             // currently assumes 4 counts per measure
-            // TODO: Make measures adjust with changes in count per measure
             begMeasure = endMeasure;
-            endMeasure = begMeasure + move.getCounts() / 4;
+            int totalCounts = 0;
+            int currentMeasure = begMeasure;
+            while (move.getCounts() > totalCounts){
+                try {
+                    totalCounts += drillInfo.getCountsHashMap().get(currentMeasure);
+                } catch (NullPointerException e) {
+                    totalCounts += 4;
+                }
+                currentMeasure ++;
+            }
+            endMeasure = currentMeasure;
             if (begMeasure != endMeasure) {
                 contentStream.showText("Measures:  " + (begMeasure + 1)
                         + " - " + endMeasure);
