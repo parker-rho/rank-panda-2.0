@@ -1526,6 +1526,8 @@ public class ProjectView {
         @Override
         public void actionPerformed(ActionEvent e) {
             Wizard myWiz = new Wizard(controller, controller.getTempoHash(), controller.getCountHash(), controller.getSongName());
+            saved = false;
+            updateProjectTitle();
         }
     }
 
